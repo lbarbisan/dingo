@@ -1,8 +1,8 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Divide implements NumericExpr {
+public class Inf implements BooleanExpr {
 
-	public Divide(Tree left, Tree right) {
+	public Inf(Tree left, Tree right) {
 	    this.left = left;
 	    this.right = right;
 	  }

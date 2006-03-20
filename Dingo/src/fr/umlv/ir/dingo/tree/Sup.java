@@ -1,8 +1,8 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Superior implements BooleanExpr {
+public class Sup implements BooleanExpr {
 
-	public Superior(Tree left, Tree right) {
+	public Sup(Tree left, Tree right) {
 	    this.left = left;
 	    this.right = right;
 	  }

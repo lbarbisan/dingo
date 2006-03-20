@@ -1,19 +1,13 @@
 package fr.umlv.ir.dingo.tree;
 
+public class Identifier extends Var implements Expr {
 
-public class Identifier implements Expr {
-	final String id;
+	public Identifier(String identifier) {
+		super(identifier);
+	}
 
-	  public Identifier(String id) {
-	    this.id = id;
-	  }
-
-	  public final String getId() {
-	    return this.id;
-	  }
-
-	  public void accept(TreeVisitor v) {
-	    v.visit(this);
-	  }
+	public final String getValue() {
+		return this.getIdentifier();
+	}
 
 }

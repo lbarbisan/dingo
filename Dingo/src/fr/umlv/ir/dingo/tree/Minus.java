@@ -1,6 +1,6 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Minus implements NumericExpr {
+public class Minus implements Expr {
 
 	public Minus(Tree left, Tree right) {
 	    this.left = left;

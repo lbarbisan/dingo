@@ -1,28 +1,26 @@
 package fr.umlv.ir.dingo.tree;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 
 
 
 public class ParamsList implements Tree {
 
-	final LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
+	final LinkedHashMap<String, String> list = new LinkedHashMap<String, String>();
 	  
 	  public ParamsList()  {
 	  }
 	  public ParamsList(String ident, String type) {
-	    params.put(ident, type);
+	    list.put(ident, type);
 	  }
 
 	  public Iterator<String> variableIterator()  {
-	    return params.keySet().iterator();
+	    return list.keySet().iterator();
 	  }
 	  
 	  public Iterator<String> typeIterator()  {
-		    return params.values().iterator();
+		    return list.values().iterator();
 		  }
 	  
 	  public void accept(TreeVisitor v) {
@@ -31,11 +29,11 @@ public class ParamsList implements Tree {
 
 
 	  public ParamsList add(String ident, String type) {
-	    params.put(ident, type);
+	    list.put(ident, type);
 	    return this;
 	  }
 	  public int number() {
-	    return params.size();
+	    return list.size();
 	  }
 
 

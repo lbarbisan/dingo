@@ -10,15 +10,13 @@ public enum NonTerminalEnum {
   type,
   init,
   expr,
-  numeric_expr,
+  params_list,
   string_expr,
-  function_call,
+  numeric_expr,
   booleanExpr,
   else_bloc,
-  params_list,
   param,
-  params_list_tail,
+  function_call,
   args_list,
-  arg,
-  args_list_tail;
+  arg;
 }

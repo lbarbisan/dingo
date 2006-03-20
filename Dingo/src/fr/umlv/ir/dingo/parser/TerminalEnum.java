@@ -20,8 +20,8 @@ public enum TerminalEnum {
   and,
   or,
   semicolon,
-  rpar,
   lpar,
+  rpar,
   l_brace,
   r_brace,
   dot,
@@ -51,7 +51,5 @@ public enum TerminalEnum {
   function_type,
   object_type,
   error,
-  identifier,
-  numeric_identifier,
-  string_identifier;
+  identifier;
 }

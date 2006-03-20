@@ -2,8 +2,8 @@ package fr.umlv.ir.dingo.tree;
 
 public class For implements Instruction {
 
-	public For(Initialization expr, BooleanExpr booleanExpr,
-			Initialization expr2, Instructions program) {
+	public For(Init expr, BooleanExpr booleanExpr,
+			Init expr2, Instructions program) {
 		this.booleanExpr = booleanExpr;
 		this.program = program;
 		this.expr = expr;
@@ -14,9 +14,9 @@ public class For implements Instruction {
 
 	private final Instructions program;
 
-	private final Initialization expr;
+	private final Init expr;
 
-	private final Initialization expr2;
+	private final Init expr2;
 
 	public void accept(TreeVisitor v) {
 		v.visit(this);
@@ -30,11 +30,11 @@ public class For implements Instruction {
 		return this.booleanExpr;
 	}
 
-	public final Initialization getDefinitionExpr() {
+	public final Init getDefinitionExpr() {
 		return this.expr;
 	}
 
-	public final Initialization getDefinitionExpr2() {
+	public final Init getDefinitionExpr2() {
 		return this.expr2;
 	}
 

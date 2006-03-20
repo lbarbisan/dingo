@@ -1,6 +1,6 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Modulo implements NumericExpr {
+public class Modulo implements Expr {
 
 	public Modulo(Tree left, Tree right) {
 	    this.left = left;

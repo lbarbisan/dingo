@@ -1,9 +1,8 @@
 package fr.umlv.ir.dingo.tree;
 
-public class InferiorEquals implements BooleanExpr {
+public class SupEquals implements BooleanExpr {
 
-
-	public InferiorEquals(Tree left, Tree right) {
+	public SupEquals(Tree left, Tree right) {
 	    this.left = left;
 	    this.right = right;
 	  }
@@ -23,5 +22,6 @@ public class InferiorEquals implements BooleanExpr {
 	  public final Tree getRight() {
 	    return this.right;
 	  }
+
 
 }

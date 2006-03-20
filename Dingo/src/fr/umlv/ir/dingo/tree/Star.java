@@ -1,6 +1,6 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Star implements NumericExpr {
+public class Star implements Expr {
 
 	public Star(Tree left, Tree right) {
 	    this.left = left;

@@ -12,11 +12,14 @@ import fr.umlv.ir.dingo.tree.Expr;
 import fr.umlv.ir.dingo.tree.ExprDefinition;
 import fr.umlv.ir.dingo.tree.FunctionCall;
 import fr.umlv.ir.dingo.tree.Identifier;
+import fr.umlv.ir.dingo.tree.Init;
 import fr.umlv.ir.dingo.tree.Instruction;
 import fr.umlv.ir.dingo.tree.Instructions;
+import fr.umlv.ir.dingo.tree.NumericExpr;
 import fr.umlv.ir.dingo.tree.NumericValue;
 import fr.umlv.ir.dingo.tree.Param;
 import fr.umlv.ir.dingo.tree.ParamsList;
+import fr.umlv.ir.dingo.tree.StringExpr;
 import fr.umlv.tatoo.runtime.parser.ErrorRecoveryListener;
 import fr.umlv.tatoo.runtime.parser.FatalErrorListener;
 import fr.umlv.tatoo.runtime.parser.ParseException;
@@ -72,9 +75,9 @@ public class ToolsParserListener
         return;
       case semicolon:
         return;
-      case rpar:
-        return;
       case lpar:
+        return;
+      case rpar:
         return;
       case l_brace:
         return;
@@ -140,10 +143,6 @@ public class ToolsParserListener
       case identifier:
         stack.push_Object(holder.get_Object());
         return;
-      case numeric_identifier:
-        return;
-      case string_identifier:
-        return;
     }
     throw new AssertionError("unknown terminal "+terminal);
   }
@@ -191,75 +190,39 @@ public class ToolsParserListener
           return;
       }
       case init_def: {
-          stack.push_Object(attributeEvaluator.init_def());
+          Init arg1=(Init)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.init_def(arg1));
           return;
       }
       case full_type_init_identifier_def: {
           Expr arg1=(Expr)stack.pop_Object();
           Identifier arg2=(Identifier)stack.pop_Object();
           String arg3=(String)stack.pop_Object();
-          attributeEvaluator.full_type_init_identifier_def(arg3,arg2,arg1);
+          stack.push_Object(attributeEvaluator.full_type_init_identifier_def(arg3,arg2,arg1));
           return;
       }
       case empty_type_init_identifier_def: {
           Expr arg1=(Expr)stack.pop_Object();
           Identifier arg2=(Identifier)stack.pop_Object();
-          attributeEvaluator.empty_type_init_identifier_def(arg2,arg1);
+          stack.push_Object(attributeEvaluator.empty_type_init_identifier_def(arg2,arg1));
           return;
       }
-      case numeric_expr_def: {
-          stack.push_Object(attributeEvaluator.numeric_expr_def());
-          return;
-      }
-      case string_expr_def: {
-          stack.push_Object(attributeEvaluator.string_expr_def());
-          return;
-      }
-      case function_call_expr_def: {
-          FunctionCall arg1=(FunctionCall)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.function_call_expr_def(arg1));
-          return;
-      }
-      case identifier_numeric_def: {
-          attributeEvaluator.identifier_numeric_def();
-          return;
-      }
-      case identifier_string_def: {
-          attributeEvaluator.identifier_string_def();
+      case function_definition: {
+          Instructions arg1=(Instructions)stack.pop_Object();
+          ParamsList arg2=(ParamsList)stack.pop_Object();
+          Identifier arg3=(Identifier)stack.pop_Object();
+          String arg4=(String)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.function_definition(arg4,arg3,arg2,arg1));
           return;
       }
       case string_value_def: {
           String arg1=(String)stack.pop_Object();
-          attributeEvaluator.string_value_def(arg1);
-          return;
-      }
-      case concat_def: {
-          attributeEvaluator.concat_def();
-          return;
-      }
-      case plus_def: {
-          attributeEvaluator.plus_def();
-          return;
-      }
-      case minus_def: {
-          attributeEvaluator.minus_def();
-          return;
-      }
-      case star_def: {
-          attributeEvaluator.star_def();
-          return;
-      }
-      case divide_def: {
-          attributeEvaluator.divide_def();
-          return;
-      }
-      case modulo_def: {
-          attributeEvaluator.modulo_def();
+          stack.push_Object(attributeEvaluator.string_value_def(arg1));
           return;
       }
       case number_value_def: {
           NumericValue arg1=(NumericValue)stack.pop_Object();
-          attributeEvaluator.number_value_def(arg1);
+          stack.push_Object(attributeEvaluator.number_value_def(arg1));
           return;
       }
       case if_def: {
@@ -290,11 +253,15 @@ public class ToolsParserListener
           return;
       }
       case equals_def: {
-          stack.push_Object(attributeEvaluator.equals_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.equals_def(arg2,arg1));
           return;
       }
       case not_equals_def: {
-          stack.push_Object(attributeEvaluator.not_equals_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.not_equals_def(arg2,arg1));
           return;
       }
       case not_def: {
@@ -303,19 +270,27 @@ public class ToolsParserListener
           return;
       }
       case sup_def: {
-          stack.push_Object(attributeEvaluator.sup_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.sup_def(arg2,arg1));
           return;
       }
       case inf_def: {
-          stack.push_Object(attributeEvaluator.inf_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.inf_def(arg2,arg1));
           return;
       }
       case inf_equals_def: {
-          stack.push_Object(attributeEvaluator.inf_equals_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.inf_equals_def(arg2,arg1));
           return;
       }
       case sup_equals_def: {
-          stack.push_Object(attributeEvaluator.sup_equals_def());
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.sup_equals_def(arg2,arg1));
           return;
       }
       case booleanValue_def: {
@@ -325,8 +300,10 @@ public class ToolsParserListener
       }
       case for_def: {
           Instructions arg1=(Instructions)stack.pop_Object();
-          BooleanExpr arg2=(BooleanExpr)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.for_def(arg2,arg1));
+          Init arg2=(Init)stack.pop_Object();
+          BooleanExpr arg3=(BooleanExpr)stack.pop_Object();
+          Init arg4=(Init)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.for_def(arg4,arg3,arg2,arg1));
           return;
       }
       case foreach_def: {
@@ -364,30 +341,19 @@ public class ToolsParserListener
           stack.push_Object(attributeEvaluator.continue_def());
           return;
       }
-      case function_definition: {
-          Instructions arg1=(Instructions)stack.pop_Object();
-          ParamsList arg2=(ParamsList)stack.pop_Object();
-          Identifier arg3=(Identifier)stack.pop_Object();
-          String arg4=(String)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.function_definition(arg4,arg3,arg2,arg1));
-          return;
-      }
-      case empty_params_list: {
-          stack.push_Object(attributeEvaluator.empty_params_list());
-          return;
-      }
-      case param_list_def: {
+      case one_param_list_def: {
           Param arg1=(Param)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.param_list_def(arg1));
+          stack.push_Object(attributeEvaluator.one_param_list_def(arg1));
           return;
       }
-      case empty_params_list_tail: {
-          attributeEvaluator.empty_params_list_tail();
+      case params_list_def: {
+          ParamsList arg1=(ParamsList)stack.pop_Object();
+          Param arg2=(Param)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.params_list_def(arg2,arg1));
           return;
       }
-      case full_params_list_tail: {
-          Param arg1=(Param)stack.pop_Object();
-          attributeEvaluator.full_params_list_tail(arg1);
+      case empty_params_list_def: {
+          stack.push_Object(attributeEvaluator.empty_params_list_def());
           return;
       }
       case param_def: {
@@ -423,30 +389,78 @@ public class ToolsParserListener
       }
       case function_call_def: {
           ArgsList arg1=(ArgsList)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.function_call_def(arg1));
+          Identifier arg2=(Identifier)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.function_call_def(arg2,arg1));
           return;
       }
-      case empty_args_list: {
-          stack.push_Object(attributeEvaluator.empty_args_list());
-          return;
-      }
-      case full_args_list: {
+      case one_arg_list_def: {
           Expr arg1=(Expr)stack.pop_Object();
-          stack.push_Object(attributeEvaluator.full_args_list(arg1));
+          stack.push_Object(attributeEvaluator.one_arg_list_def(arg1));
           return;
       }
-      case empty_args_list_tail: {
-          attributeEvaluator.empty_args_list_tail();
+      case args_list_def: {
+          ArgsList arg1=(ArgsList)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.args_list_def(arg2,arg1));
           return;
       }
-      case full_args_list_tail: {
-          Expr arg1=(Expr)stack.pop_Object();
-          attributeEvaluator.full_args_list_tail(arg1);
+      case empty_args_list_def: {
+          stack.push_Object(attributeEvaluator.empty_args_list_def());
           return;
       }
       case arg_def: {
           Expr arg1=(Expr)stack.pop_Object();
           stack.push_Object(attributeEvaluator.arg_def(arg1));
+          return;
+      }
+      case plus_def: {
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.plus_def(arg2,arg1));
+          return;
+      }
+      case minus_def: {
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.minus_def(arg2,arg1));
+          return;
+      }
+      case star_def: {
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.star_def(arg2,arg1));
+          return;
+      }
+      case divide_def: {
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.divide_def(arg2,arg1));
+          return;
+      }
+      case modulo_def: {
+          Expr arg1=(Expr)stack.pop_Object();
+          Expr arg2=(Expr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.modulo_def(arg2,arg1));
+          return;
+      }
+      case identifier_expr_def: {
+          Identifier arg1=(Identifier)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.identifier_expr_def(arg1));
+          return;
+      }
+      case numeric_expr_def: {
+          NumericExpr arg1=(NumericExpr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.numeric_expr_def(arg1));
+          return;
+      }
+      case string_expr_def: {
+          StringExpr arg1=(StringExpr)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.string_expr_def(arg1));
+          return;
+      }
+      case function_call_expr_def: {
+          FunctionCall arg1=(FunctionCall)stack.pop_Object();
+          stack.push_Object(attributeEvaluator.function_call_expr_def(arg1));
           return;
       }
     }
@@ -499,9 +513,9 @@ public class ToolsParserListener
         return;
       case semicolon:
         return;
-      case rpar:
-        return;
       case lpar:
+        return;
+      case rpar:
         return;
       case l_brace:
         return;
@@ -567,10 +581,6 @@ public class ToolsParserListener
       case identifier:
         stack.pop_Object();
         return;
-      case numeric_identifier:
-        return;
-      case string_identifier:
-        return;
     }
     throw new AssertionError("unknown terminal "+terminal);
   }
@@ -594,15 +604,18 @@ public class ToolsParserListener
         stack.pop_Object();
         return;
       case init:
+        stack.pop_Object();
         return;
       case expr:
         stack.pop_Object();
         return;
-      case numeric_expr:
+      case params_list:
+        stack.pop_Object();
         return;
       case string_expr:
+        stack.pop_Object();
         return;
-      case function_call:
+      case numeric_expr:
         stack.pop_Object();
         return;
       case booleanExpr:
@@ -610,21 +623,17 @@ public class ToolsParserListener
         return;
       case else_bloc:
         return;
-      case params_list:
-        stack.pop_Object();
-        return;
       case param:
         stack.pop_Object();
         return;
-      case params_list_tail:
+      case function_call:
+        stack.pop_Object();
         return;
       case args_list:
         stack.pop_Object();
         return;
       case arg:
         stack.pop_Object();
-        return;
-      case args_list_tail:
         return;
     }
     throw new AssertionError("unknown nonterminal "+nonterminal);
