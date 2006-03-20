@@ -22,8 +22,8 @@
 	<terminal id="or" priority="1" associativity="left" />
 
 	<terminal id="semicolon" />
-	<terminal id="rpar" />
 	<terminal id="lpar" />
+	<terminal id="rpar" />
 	<terminal id="l_brace" />
 	<terminal id="r_brace" />
 	<terminal id="dot" />
@@ -59,9 +59,10 @@
 	<terminal id="error" />
 
 	<terminal id="identifier" />
+	<!--  
 	<terminal id="numeric_identifier" />
 	<terminal id="string_identifier" />
-
+	-->
 	<start id="start" />
 
 	<production id="dingo_start">
@@ -153,27 +154,46 @@
 			<right id="expr" />
 		</rhs>
 	</production>
-
-	<production id="numeric_expr_def">
+	 
+<!-- CHECK IF ERROR
+	<production id="empty_expr_def">
 		<lhs id="expr" />
+		<rhs />
+	</production>
+-->
+
+	<production id="function_definition">
+		<lhs id="instruction" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="def" />
+			<right id="type" />
+			<right id="identifier" />
+			<right id="lpar" />
+			<right id="params_list" />
+			<right id="rpar" />
+			<right id="l_brace" />
+			<right id="instructions" />
+			<right id="r_brace" />
 		</rhs>
 	</production>
-
-	<production id="string_expr_def">
-		<lhs id="expr" />
+	
+	<production id="string_value_def">
+		<lhs id="string_expr" />
 		<rhs>
+			<right id="stringValue" />
+		</rhs>
+	</production>
+	
+	<!--CHECK IF ERROR FOR CONCAT 
+	<production id="concat_def">
+		<lhs id="string_expr" />
+		<rhs>
+			<right id="string_expr" />
+			<right id="plus" />
 			<right id="string_expr" />
 		</rhs>
 	</production>
 	
-	<production id="function_call_expr_def">
-		<lhs id="expr" />
-		<rhs>
-			<right id="function_call" />
-		</rhs>
-	</production>
 	
 	<production id="identifier_numeric_def">
 		<lhs id="numeric_expr" />
@@ -188,76 +208,8 @@
 			<right id="string_identifier" />
 		</rhs>
 	</production>
-
-<!-- CHECK IF ERROR
-	<production id="empty_expr_def">
-		<lhs id="expr" />
-		<rhs />
-	</production>
--->
-
-	<production id="string_value_def">
-		<lhs id="string_expr" />
-		<rhs>
-			<right id="stringValue" />
-		</rhs>
-	</production>
+	-->
 	
-	<!--CHECK IF ERROR FOR CONCAT -->
-	<production id="concat_def">
-		<lhs id="string_expr" />
-		<rhs>
-			<right id="string_expr" />
-			<right id="plus" />
-			<right id="string_expr" />
-		</rhs>
-	</production>
-	
-	<production id="plus_def">
-		<lhs id="numeric_expr" />
-		<rhs>
-			<right id="numeric_expr" />
-			<right id="plus" />
-			<right id="numeric_expr" />
-		</rhs>
-	</production>
-
-	<production id="minus_def">
-		<lhs id="numeric_expr" />
-		<rhs>
-			<right id="numeric_expr" />
-			<right id="minus" />
-			<right id="numeric_expr" />
-		</rhs>
-	</production>
-
-	<production id="star_def">
-		<lhs id="numeric_expr" />
-		<rhs>
-			<right id="numeric_expr" />
-			<right id="star" />
-			<right id="numeric_expr" />
-		</rhs>
-	</production>
-
-	<production id="divide_def">
-		<lhs id="numeric_expr" />
-		<rhs>
-			<right id="numeric_expr" />
-			<right id="div" />
-			<right id="numeric_expr" />
-		</rhs>
-	</production>
-
-	<production id="modulo_def">
-		<lhs id="numeric_expr" />
-		<rhs>
-			<right id="numeric_expr" />
-			<right id="modulo" />
-			<right id="numeric_expr" />
-		</rhs>
-	</production>
-
 	<production id="number_value_def">
 		<lhs id="numeric_expr" />
 		<rhs>
@@ -316,18 +268,18 @@
 	<production id="equals_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="equals" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
 	<production id="not_equals_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="notEquals" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
@@ -342,38 +294,38 @@
 	<production id="sup_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="sup" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
 	<production id="inf_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="inf" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
 	<production id="inf_equals_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="inf" />
 			<right id="equals" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
 	<production id="sup_equals_def">
 		<lhs id="booleanExpr" />
 		<rhs>
-			<right id="numeric_expr" />
+			<right id="expr" />
 			<right id="sup" />
 			<right id="equals" />
-			<right id="numeric_expr" />
+			<right id="expr" />
 		</rhs>
 	</production>
 
@@ -467,50 +419,28 @@
 			<right id="_continue" />
 		</rhs>
 	</production>
-
-
-	<production id="function_definition">
-		<lhs id="instruction" />
+	
+	<production id="one_param_list_def">
+		<lhs id="params_list" />
 		<rhs>
-			<right id="def" />
-			<right id="type" />
-			<right id="identifier" />
-			<right id="lpar" />
-			<right id="params_list" />
-			<right id="rpar" />
-			<right id="l_brace" />
-			<right id="instructions" />
-			<right id="r_brace" />
+			<right id="param" />
 		</rhs>
 	</production>
 
-	<production id="empty_params_list">
+	<production id="params_list_def">
+		<lhs id="params_list" />
+		<rhs>
+			<right id="param" />
+			<right id="comma" />
+			<right id="params_list" />
+		</rhs>
+	</production>
+
+	<production id="empty_params_list_def">
 		<lhs id="params_list" />
 		<rhs />
 	</production>
-
-	<production id="param_list_def">
-		<lhs id="params_list"/>
-		<rhs>
-			<right id="param"/>
-			<right id="params_list_tail"/>
-		</rhs>
-	</production>
-
-	<production id="empty_params_list_tail">
-		<lhs id="params_list_tail" />
-		<rhs />
-	</production>
 	
-	<production id="full_params_list_tail">
-		<lhs id="params_list_tail"/>
-		<rhs>
-			<right id="comma"/>
-			<right id="param"/>
-			<right id="params_list_tail"/>
-		</rhs>
-	</production>
-
 	<production id="param_def">
 		<lhs id="param" />
 		<rhs>
@@ -546,7 +476,7 @@
 			<right id="_void" />
 		</rhs>
 	</production>
-
+	
 	<production id="array_type_def">
 		<lhs id="type" />
 		<rhs>
@@ -556,7 +486,7 @@
 			<right id="inf"/>
 		</rhs>
 	</production>
-	
+	 
 	<production id="function_type_def">
 		<lhs id="type" />
 		<rhs>
@@ -567,43 +497,111 @@
 	<production id="function_call_def">
 		<lhs id="function_call" />
 		<rhs>
+			<right id="identifier" />
 			<right id="lpar" />
 			<right id="args_list" />
 			<right id="rpar" />
 		</rhs>
 	</production>
 
-	<production id="empty_args_list">
+	<production id="one_arg_list_def">
+		<lhs id="args_list" />
+		<rhs>
+			<right id="arg" />
+		</rhs>
+	</production>
+
+	<production id="args_list_def">
+		<lhs id="args_list" />
+		<rhs>
+			<right id="arg" />
+			<right id="comma" />
+			<right id="args_list" />
+		</rhs>
+	</production>
+
+	<production id="empty_args_list_def">
 		<lhs id="args_list" />
 		<rhs />
 	</production>
-
-	<production id="full_args_list">
-		<lhs id="args_list"/>
-		<rhs>
-			<right id="arg"/>
-			<right id="args_list_tail"/>
-		</rhs>
-	</production>
-
-	<production id="empty_args_list_tail">
-		<lhs id="args_list_tail" />
-		<rhs />
-	</production>
 	
-	<production id="full_args_list_tail">
-		<lhs id="args_list_tail"/>
-		<rhs>
-			<right id="comma"/>
-			<right id="arg"/>
-			<right id="args_list_tail"/>
-		</rhs>
-	</production>
-
 	<production id="arg_def">
 		<lhs id="arg" />
 		<rhs>
 			<right id="expr" />
+		</rhs>
+	</production>
+	
+	<production id="plus_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="expr" />
+			<right id="plus" />
+			<right id="expr" />
+		</rhs>
+	</production>
+
+	<production id="minus_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="expr" />
+			<right id="minus" />
+			<right id="expr" />
+		</rhs>
+	</production>
+
+	<production id="star_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="expr" />
+			<right id="star" />
+			<right id="expr" />
+		</rhs>
+	</production>
+
+	<production id="divide_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="expr" />
+			<right id="div" />
+			<right id="expr" />
+		</rhs>
+	</production>
+
+	<production id="modulo_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="expr" />
+			<right id="modulo" />
+			<right id="expr" />
+		</rhs>
+	</production>
+	
+	<production id="identifier_expr_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="identifier" />
+		</rhs>
+	</production>
+	 
+	<production id="numeric_expr_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="numeric_expr" />
+		</rhs>
+	</production>
+	  
+	<production id="string_expr_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="string_expr" />
+		</rhs>
+	</production>
+	
+	<production id="function_call_expr_def">
+		<lhs id="expr" />
+		<rhs>
+			<right id="function_call" />
 		</rhs>
 	</production>
 	<!--

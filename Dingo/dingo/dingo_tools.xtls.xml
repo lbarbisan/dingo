@@ -36,13 +36,12 @@
 	<rule id="semicolon" terminal="semicolon" />
 	<rule id="eoln" discard="true" />
 	<rule id="comment" discard="true" />
-	<rule id="rpar" terminal="rpar" />
 	<rule id="lpar" terminal="lpar" />
+	<rule id="rpar" terminal="rpar" />
 	<rule id="l_brace" terminal="l_brace" />
 	<rule id="r_brace" terminal="r_brace" />
 	<rule id="identifier" terminal="identifier" />
-	<rule id="numeric_identifier" terminal="numeric_identifier" />
-	<rule id="string_identifier" terminal="string_identifier" />
+
 	<rule id="dot" terminal="dot" />
 	<rule id="comma" terminal="comma" />
 	<rule id="_return" terminal="_return" />
@@ -62,7 +61,7 @@
 	<import type="fr.umlv.ir.dingo.tree.StringValue" />
 	<import type="fr.umlv.ir.dingo.tree.NumericValue" />
 	<import type="fr.umlv.ir.dingo.tree.BooleanValue" />
-	<import type="fr.umlv.ir.dingo.tree.Initialization" />
+	<import type="fr.umlv.ir.dingo.tree.Init" />
 	<import type="fr.umlv.ir.dingo.tree.ParamsList" />
 	<import type="fr.umlv.ir.dingo.tree.Param" />
 	<import type="fr.umlv.ir.dingo.tree.Function" />
@@ -73,20 +72,17 @@
 	<terminal id="numberValue" type="NumericValue" />
 	<terminal id="stringValue" type="String" />
 	<terminal id="booleanValue" type="BooleanValue" />
+
 	<terminal id="identifier" type="Identifier" />
-	<!-- 
-	<terminal id="string_identifier" type="Identifier" />
-	<terminal id="numeric_identifier" type="Identifier" />
-	 -->
 
 	<non-terminal id="instruction" type="Instruction" />
 	<non-terminal id="expr_def" type="ExprDefinition" />
 	<non-terminal id="instructions" type="Instructions" />
-	<non-terminal id="StringExpr" type="StringExpr" />
-	<non-terminal id="NumericExpr" type="NumericExpr" />
+	<non-terminal id="string_expr" type="StringExpr" />
+	<non-terminal id="numeric_expr" type="NumericExpr" />
 	<non-terminal id="booleanExpr" type="BooleanExpr" />
 	<non-terminal id="expr" type="Expr" />
-	<non-terminal id="initialization" type="Initialization" />
+	<non-terminal id="init" type="Init" />
 	<non-terminal id="function" type="Function" />
 	<non-terminal id="params_list" type="ParamsList" />
 	<non-terminal id="param" type="Param" />
@@ -94,4 +90,5 @@
 	<non-terminal id="args_list" type="ArgsList" />
 	<non-terminal id="arg" type="Expr" />
 	<non-terminal id="type" type="String" />
+	
 </tools>
