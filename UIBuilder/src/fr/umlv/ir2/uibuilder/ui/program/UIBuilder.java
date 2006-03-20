@@ -1,6 +1,8 @@
 package fr.umlv.ir2.uibuilder.ui.program;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import fr.umlv.ir2.uibuilder.ui.MainFrame;
 
@@ -42,9 +44,14 @@ public class UIBuilder {
 	
 	/**
 	 * @param args
+	 * @throws UnsupportedLookAndFeelException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		
+		UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 		MainFrame.createMainFrame().setVisible(true);
 	}
 	
