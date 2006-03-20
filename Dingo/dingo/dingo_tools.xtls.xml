@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tools SYSTEM "dtd/tools.dtd">
+<tools>
+	<rule id="plus" terminal="plus" />
+	<rule id="star" terminal="star" />
+	<rule id="div" terminal="div" />
+	<rule id="minus" terminal="minus" />
+	<rule id="modulo" terminal="modulo" />
+	<rule id="equals" terminal="equals" />
+	<rule id="sup" terminal="sup" />
+	<rule id="inf" terminal="inf" />
+	<rule id="notEquals" terminal="notEquals" />
+	<rule id="not" terminal="not" />
+	<rule id="and" terminal="and" />
+	<rule id="or" terminal="or" />
+	<rule id="dingo" terminal="dingo" />
+	<rule id="def" terminal="def" />
+	<rule id="_if" terminal="_if" />
+	<rule id="_else" terminal="_else" />
+	<rule id="_for" terminal="_for" />
+	<rule id="_foreach" terminal="_foreach" />
+	<rule id="_in" terminal="_in" />
+	<rule id="forever" terminal="forever" />
+	<rule id="_break" terminal="_break" />
+	<rule id="_continue" terminal="_continue" />
+	<rule id="print" terminal="print" />
+	<rule id="println" terminal="println" />
+	<rule id="gui" terminal="gui" />
+	<rule id="numberValue" terminal="numberValue" />
+	<rule id="stringValue" terminal="stringValue" />
+	<rule id="string_type" terminal="string_type" />
+	<rule id="numeric_type" terminal="numeric_type" />
+	<rule id="function_type" terminal="function_type" />
+	<rule id="array_type" terminal="array_type" />
+	<rule id="object_type" terminal="object_type" />
+	<rule id="semicolon" terminal="semicolon" />
+	<rule id="eoln" discard="true" />
+	<rule id="comment" discard="true" />
+	<rule id="rpar" terminal="rpar" />
+	<rule id="lpar" terminal="lpar" />
+	<rule id="l_brace" terminal="l_brace" />
+	<rule id="r_brace" terminal="r_brace" />
+	<rule id="identifier" terminal="identifier" />
+	<rule id="numeric_identifier" terminal="numeric_identifier" />
+	<rule id="string_identifier" terminal="string_identifier" />
+	<rule id="dot" terminal="dot" />
+	<rule id="comma" terminal="comma" />
+	<rule id="_return" terminal="_return" />
+	<rule id="space" discard="true" />
+	<rule id="_var" terminal="_var" />
+	<rule id="_void" terminal="_void" />
+
+	<import type="java.math.BigDecimal" />
+	<import type="fr.umlv.ir.dingo.tree.Instruction" />
+	<import type="fr.umlv.ir.dingo.tree.ExprDefinition" />
+	<import type="fr.umlv.ir.dingo.tree.Instruction" />
+	<import type="fr.umlv.ir.dingo.tree.Identifier" />
+	<import type="fr.umlv.ir.dingo.tree.Expr" />
+	<import type="fr.umlv.ir.dingo.tree.NumericExpr" />
+	<import type="fr.umlv.ir.dingo.tree.StringExpr" />
+	<import type="fr.umlv.ir.dingo.tree.BooleanExpr" />
+	<import type="fr.umlv.ir.dingo.tree.StringValue" />
+	<import type="fr.umlv.ir.dingo.tree.NumericValue" />
+	<import type="fr.umlv.ir.dingo.tree.BooleanValue" />
+	<import type="fr.umlv.ir.dingo.tree.Initialization" />
+	<import type="fr.umlv.ir.dingo.tree.ParamsList" />
+	<import type="fr.umlv.ir.dingo.tree.Param" />
+	<import type="fr.umlv.ir.dingo.tree.Function" />
+	<import type="fr.umlv.ir.dingo.tree.FunctionCall" />
+	<import type="fr.umlv.ir.dingo.tree.ArgsList" />
+
+
+	<terminal id="numberValue" type="NumericValue" />
+	<terminal id="stringValue" type="String" />
+	<terminal id="booleanValue" type="BooleanValue" />
+	<terminal id="identifier" type="Identifier" />
+	<!-- 
+	<terminal id="string_identifier" type="Identifier" />
+	<terminal id="numeric_identifier" type="Identifier" />
+	 -->
+
+	<non-terminal id="instruction" type="Instruction" />
+	<non-terminal id="expr_def" type="ExprDefinition" />
+	<non-terminal id="instructions" type="Instructions" />
+	<non-terminal id="StringExpr" type="StringExpr" />
+	<non-terminal id="NumericExpr" type="NumericExpr" />
+	<non-terminal id="booleanExpr" type="BooleanExpr" />
+	<non-terminal id="expr" type="Expr" />
+	<non-terminal id="initialization" type="Initialization" />
+	<non-terminal id="function" type="Function" />
+	<non-terminal id="params_list" type="ParamsList" />
+	<non-terminal id="param" type="Param" />
+	<non-terminal id="function_call" type="FunctionCall" />
+	<non-terminal id="args_list" type="ArgsList" />
+	<non-terminal id="arg" type="Expr" />
+	<non-terminal id="type" type="String" />
+</tools>

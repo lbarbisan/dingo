@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE parser SYSTEM 
+    "parser.dtd">
+<parser>
+<terminal id="plus" priority="1" associativity="left"/>
+<terminal id="star" priority="2" associativity="left"/>
+<terminal id="divide" priority="2" associativity="left"/>
+<terminal id="modulo" priority="2" associativity="left"/>
+<terminal id="minus" priority="1" associativity="left"/>
+<terminal id="equals" priority="0" associativity="non-associative"/>
+<terminal id="notEquals" priority="0" associativity="non-associative"/>
+<terminal id="superior" priority="0" associativity="left"/>
+<terminal id="inferior" priority="0" associativity="left"/>
+<terminal id="not" priority="3"/>
+<terminal id="and" priority="2" associativity="left"/>
+<terminal id="or" priority="1" associativity="left"/>
+<terminal id="dingo"/>
+<terminal id="def"/>
+<terminal id="If"/>
+<terminal id="Else"/>
+<terminal id="For"/>
+<terminal id="foreach"/>
+<terminal id="in"/>
+<terminal id="forever"/>
+<terminal id="Break"/>
+<terminal id="Continue"/>
+<terminal id="print"/>
+<terminal id="println"/>
+<terminal id="gui"/>
+<terminal id="semicolon"/>
+<terminal id="numberValue"/>
+<terminal id="stringValue"/>
+<terminal id="booleanValue"/>
+<terminal id="StringType"/>
+<terminal id="NumericType"/>
+<terminal id="ArrayType"/>
+<terminal id="FunctionType"/>
+<terminal id="ObjectType"/>
+<terminal id="rpar"/>
+<terminal id="lpar"/>
+<terminal id="lacco"/>
+<terminal id="racco"/>
+<terminal id="error"/>
+<terminal id="variable"/>
+<terminal id="numericVariable"/>
+<terminal id="stringVariable"/>
+<terminal id="dot"/>
+<terminal id="comma"/>
+<terminal id="Return"/>
+<terminal id="var"/>
+<terminal id="name"/>
+<terminal id="Void"/>
+<start id="start"/>
+	
+ 
+ <production id="start_production">
+  <lhs id="start"/>
+  <rhs>
+   <right id="dingo"/>
+   <right id="variable"/>
+   <right id="lacco"/>
+   <right id="program"/>
+   <right id="racco"/>
+  </rhs>
+ </production>
+ 
+ <production id="program_empty_production">
+  <lhs id="program"/>
+  <rhs>
+  </rhs>
+ </production>
+ 
+ <production id="program_production">
+  <lhs id="program"/>
+  <rhs>
+    <right id="program"/>
+  	<right id="instruction"/>
+  	<right id="semicolon"/>
+  </rhs>
+ </production>
+ 
+ <production id="definitionExpr_production">
+  <lhs id="instruction"/>
+  <rhs>
+    <right id="definitionExpr"/>
+  </rhs>
+ </production>
+ 
+ 
+ <production id="var_production">
+  <lhs id="VAR"/>
+  <rhs>
+ 	<right id="var"/>
+  </rhs>
+ </production>
+ 
+ <production id="var_empty_production">
+  <lhs id="VAR"/>
+  <rhs/>
+ </production>
+ 
+ <production id="definitionExpr_string_production">
+  <lhs id="definitionExpr"/>
+  <rhs>
+ 	<right id="VAR"/>
+  	<right id="StringType"/>
+  	<right id="stringVariable"/> 
+  </rhs>
+ </production>
+ 
+ <production id="Initialization_production">
+  <lhs id="definitionExpr"/>
+  <rhs>
+  	<right id="initialization"/>
+  </rhs>
+ </production>
+ 
+ <production id="stringInitialization_production">
+  <lhs id="initialization"/>
+  <rhs>
+  	<right id="VAR"/>
+  	<right id="StringType"/>
+  	<right id="stringVariable"/>
+ 	<right id="equals"/>
+  	<right id="StringExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="definitionExpr_numeric_production">
+  <lhs id="definitionExpr"/>
+  <rhs>
+ 	<right id="VAR"/>
+  	<right id="NumericType"/>
+  	<right id="numericVariable"/>
+  </rhs>
+ </production>
+ 
+ <production id="NumericInitialization_production">
+  <lhs id="initialization"/>
+  <rhs>
+    <right id="VAR"/>
+  	<right id="NumericType"/>
+  	<right id="numericVariable"/>
+ 	<right id="equals"/>
+ 	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="definitionExpr_noType_production">
+  <lhs id="definitionExpr"/>
+  <rhs>
+ 	<right id="VAR"/>
+  	<right id="variable"/>
+  	<right id="functionCall"/>
+  </rhs>
+ </production>
+ 
+ <production id="initialization_production">
+  <lhs id="initialization"/>
+  <rhs>
+    <right id="VAR"/>
+  	<right id="variable"/>
+  	<right id="equals"/>
+ 	<right id="expr"/>
+  </rhs>
+ </production>
+ 
+ <production id="numericExpr_production">
+  <lhs id="expr"/>
+  <rhs>
+ 	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="stringExpr_production">
+  <lhs id="expr"/>
+  <rhs>
+ 	<right id="StringExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="variabel_Numeric_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+ 	<right id="numericVariable"/>
+  </rhs>
+ </production>
+ 
+ <production id="variable_String_production">
+  <lhs id="StringExpr"/>
+  <rhs>
+ 	<right id="stringVariable"/>
+  </rhs>
+ </production>
+ 
+ 
+ 
+ <production id="empty_expr_production">
+  <lhs id="expr"/>
+  <rhs/>
+ </production>
+ 
+ <production id="stringValue_production">
+  <lhs id="StringExpr"/>
+  <rhs>
+  	<right id="stringValue"/>
+  </rhs>
+ </production>
+ 
+ <production id="plus_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="plus"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="minus_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="minus"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="star_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="star"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="divide_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="divide"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="modulo_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="modulo"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="numberValue_production">
+  <lhs id="NumericExpr"/>
+  <rhs>
+  	<right id="numberValue"/>
+  </rhs>
+ </production>
+ 
+ <production id="if_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="If"/>
+  	<right id="lpar"/>
+  	<right id="booleanExpr"/>
+  	<right id="rpar"/>
+  	<right id="lacco"/>
+  	<right id="program"/>
+  	<right id="racco"/>
+  </rhs>
+ </production>
+ 
+ <production id="and_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="booleanExpr"/>
+  	<right id="and"/>
+  	<right id="booleanExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="or_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="booleanExpr"/>
+  	<right id="or"/>
+  	<right id="booleanExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="equals_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="equals"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="not_equals_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="notEquals"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="not_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="not"/>
+  	<right id="booleanExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="superior_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="superior"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="inferior_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="inferior"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="inferior_equals_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="inferior"/>
+  	<right id="equals"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="superior_equals_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  	<right id="superior"/>
+  	<right id="equals"/>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="booleanValue_production">
+  <lhs id="booleanExpr"/>
+  <rhs>
+  	<right id="booleanValue"/>
+  </rhs>
+ </production>
+ 
+ <production id="for_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="For"/>
+  	<right id="lpar"/>
+  	<right id="initialization"/>
+  	<right id="semicolon"/>
+  	<right id="booleanExpr"/>
+  	<right id="semicolon"/>
+  	<right id="initialization"/>
+  	<right id="rpar"/>
+  	<right id="lacco"/>
+  	<right id="program"/>
+  	<right id="racco"/>
+  </rhs>
+ </production>
+ 
+ <production id="foreach_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="foreach"/>
+  	<right id="lpar"/>
+  	<right id="variable"/>
+  	<right id="in"/>
+  	<right id="variable"/>
+  	<right id="rpar"/>
+  	<right id="lacco"/>
+  	<right id="program"/>
+  	<right id="racco"/>
+  </rhs>
+ </production>
+ 
+ <production id="forever_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="forever"/>
+  	<right id="lacco"/>
+  	<right id="program"/>
+  	<right id="racco"/>
+  </rhs>
+ </production>
+ 
+ <production id="print_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="print"/>
+  	<right id="lpar"/>
+  	<right id="expr"/>
+  	<right id="rpar"/>
+  </rhs>
+ </production>
+ 
+ <production id="println_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="println"/>
+  	<right id="lpar"/>
+  	<right id="expr"/>
+  	<right id="rpar"/>
+  </rhs>
+ </production>
+ 
+ <production id="return_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="Return"/>
+  	<right id="expr"/>
+  </rhs>
+ </production>
+ 
+ <production id="break_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="Break"/>
+  </rhs>
+ </production>
+ 
+ <production id="continue_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="Continue"/>
+  </rhs>
+ </production>
+ 
+ 
+ 
+ <production id="definition_function_production">
+  <lhs id="instruction"/>
+  <rhs>
+  	<right id="def"/>
+  	<right id="type"/>
+  	<right id="variable"/>
+  	<right id="lpar"/>
+  	<right id="params"/>
+  	<right id="rpar"/>
+  	<right id="lacco"/>
+  	<right id="program"/>
+  	<right id="racco"/>
+  </rhs>
+ </production>
+ 
+ 
+ 
+ <production id="one_param_production">
+  <lhs id="params"/>
+  <rhs>
+  	<right id="param"/>
+  </rhs>
+ </production>
+ 
+  <production id="params_production">
+  <lhs id="params"/>
+  <rhs>
+  	<right id="param"/>
+  	<right id="comma"/>
+  	<right id="params"/>
+  </rhs>
+ </production>
+ 
+ <production id="no_params_production">
+  <lhs id="params"/>
+  <rhs/>
+ </production>
+ 
+ <production id="param_production">
+  <lhs id="param"/>
+  <rhs>
+  	<right id="type"/>
+  	<right id="variable"/>
+  </rhs>
+ </production>
+ 
+ <production id="numericType_production">
+  <lhs id="type"/>
+  <rhs>
+  	<right id="NumericType"/>
+  </rhs>
+ </production>
+ 
+ <production id="stringType_production">
+  <lhs id="type"/>
+  <rhs>
+  	<right id="StringType"/>
+  </rhs>
+ </production>
+ 
+ <production id="voidType_production">
+  <lhs id="type"/>
+  <rhs>
+  	<right id="Void"/>
+  </rhs>
+ </production>
+ 
+ <production id="functionCall_production">
+  <lhs id="functionCall"/>
+  <rhs>
+  	<right id="lpar"/>
+  	<right id="args"/>
+  	<right id="rpar"/>
+  </rhs>
+ </production>
+ 
+ <production id="no_functionCall_production">
+  <lhs id="functionCall"/>
+  <rhs/>
+ </production>
+ 
+ 
+ <production id="one_arg_production">
+  <lhs id="args"/>
+  <rhs>
+  	<right id="arg"/>
+  </rhs>
+ </production>
+ 
+ <production id="no_arg_production">
+  <lhs id="args"/>
+  <rhs/>
+ </production>
+ 
+ <production id="args_production">
+  <lhs id="args"/>
+  <rhs>
+  	<right id="arg"/>
+  	<right id="comma"/>
+  	<right id="args"/>
+  </rhs>
+ </production>
+ 
+ <production id="stringArg_production">
+  <lhs id="arg"/>
+  <rhs>
+  	<right id="NumericExpr"/>
+  </rhs>
+ </production>
+ 
+ <production id="numericArg_production">
+  <lhs id="arg"/>
+  <rhs>
+  	<right id="StringExpr"/>
+  </rhs>
+ </production>
+
+</parser>

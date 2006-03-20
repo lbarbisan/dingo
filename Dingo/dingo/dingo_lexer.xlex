@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE lexer SYSTEM "lexer.dtd">
+<lexer>
+	<!-- Macros -->
+
+	<define-macro name="space">
+		<star>
+			<or>
+				<letter value=" " />
+				<letter value="\t" />
+			</or>
+		</star>
+	</define-macro>
+
+	<define-macro name="number">
+		<plus>
+			<interval from="0" to="9" />
+		</plus>
+	</define-macro>
+
+	<define-macro name="eoln">
+		<cat>
+			<optional>
+				<letter value="\r" />
+			</optional>
+			<letter value="\n" />
+		</cat>
+	</define-macro>
+
+	<define-macro name="string">
+		<cat>
+			<letter value="&quot;" />
+			<star>
+				<any />
+			</star>
+			<letter value="&quot;" />
+		</cat>
+	</define-macro>
+
+	<define-macro name="identifier">
+		<plus>
+			<set>
+				<interval from="a" to="z" />
+				<interval from="A" to="Z" />
+				<interval from="0" to="9" />
+				<letter value="_" />
+			</set>
+		</plus>
+	</define-macro>
+
+	<define-macro name="comment">
+		<cat>
+			<string value="//" />
+			<any />
+			<optional>
+				<letter value="\r" />
+			</optional>
+			<letter value="\n" />
+		</cat>
+	</define-macro>
+
+
+	<!-- Rules-->
+	<rule id="space">
+		<main>
+			<macro name="space" />
+		</main>
+	</rule>
+
+	<rule id="comment">
+		<main>
+			<macro name="comment" />
+		</main>
+	</rule>
+
+	<rule id="numberValue">
+		<main>
+			<macro name="number" />
+		</main>
+	</rule>
+
+	<rule id="stringValue">
+		<main>
+			<macro name="string" />
+		</main>
+	</rule>
+
+	<rule id="string_type">
+		<main>
+			<string value="String" />
+		</main>
+	</rule>
+
+	<rule id="numeric_type">
+		<main>
+			<string value="Numeric" />
+		</main>
+	</rule>
+
+	<rule id="function_type">
+		<main>
+			<string value="Function" />
+		</main>
+	</rule>
+
+	<rule id="object_type">
+		<main>
+			<string value="Object" />
+		</main>
+	</rule>
+
+	<rule id="array_type">
+		<main>
+			<string value="Array"/>
+		</main>
+	</rule>
+
+	<rule id="identifier">
+		<main>
+			<macro name="identifier" />
+		</main>
+	</rule>
+
+	<rule id="numeric_identifier">
+		<main>
+			<macro name="identifier" />
+		</main>
+	</rule>
+
+	<rule id="string_identifier">
+		<main>
+			<macro name="identifier" />
+		</main>
+	</rule>
+
+	<rule id="plus">
+		<main>
+			<letter value="+" />
+		</main>
+	</rule>
+
+	<rule id="minus">
+		<main>
+			<letter value="-" />
+		</main>
+	</rule>
+
+	<rule id="star">
+		<main>
+			<letter value="*" />
+		</main>
+	</rule>
+
+	<rule id="div">
+		<main>
+			<letter value="/" />
+		</main>
+	</rule>
+
+	<rule id="equals">
+		<main>
+			<letter value="=" />
+		</main>
+	</rule>
+
+	<rule id="notEquals">
+		<main>
+			<string value="!=" />
+		</main>
+	</rule>
+
+	<rule id="sup">
+		<main>
+			<letter value=">" />
+		</main>
+	</rule>
+
+	<rule id="inf">
+		<main>
+			<letter value='&gt;' />
+		</main>
+	</rule>
+
+	<rule id="l_shift">
+		<main>
+			<string value="&gt;&gt;" />
+		</main>
+	</rule>
+
+	<rule id="r_shift">
+		<main>
+			<string value=">>" />
+		</main>
+	</rule>
+
+	<rule id="modulo">
+		<main>
+			<letter value="%" />
+		</main>
+	</rule>
+
+	<rule id="not">
+		<main>
+			<letter value="!" />
+		</main>
+	</rule>
+
+	<rule id="and">
+		<main>
+			<letter value="&amp;" />
+		</main>
+	</rule>
+
+	<rule id="or">
+		<main>
+			<letter value="|" />
+		</main>
+	</rule>
+
+
+
+	<rule id="semicolon">
+		<main>
+			<letter value=";" />
+		</main>
+	</rule>
+
+	<rule id="lpar">
+		<main>
+			<letter value="(" />
+		</main>
+	</rule>
+
+	<rule id="rpar">
+		<main>
+			<letter value=")" />
+		</main>
+	</rule>
+
+	<rule id="l_brace">
+		<main>
+			<letter value="{" />
+		</main>
+	</rule>
+
+	<rule id="r_brace">
+		<main>
+			<letter value="}" />
+		</main>
+	</rule>
+
+	<rule id="dot">
+		<main>
+			<letter value="." />
+		</main>
+	</rule>
+
+	<rule id="comma">
+		<main>
+			<letter value="," />
+		</main>
+	</rule>
+
+	<rule id="eoln">
+		<main>
+			<macro name="eoln" />
+		</main>
+	</rule>
+
+	<rule id="dingo">
+		<main>
+			<string value="@dingo" />
+		</main>
+	</rule>
+
+	<rule id="args">
+		<main>
+			<string value="@args" />
+		</main>
+	</rule>
+
+	<rule id="def">
+		<main>
+			<string value="@def" />
+		</main>
+	</rule>
+
+	<rule id="_var">
+		<main>
+			<string value="@var" />
+		</main>
+	</rule>
+
+	<rule id="_return">
+		<main>
+			<string value="@return" />
+		</main>
+	</rule>
+
+	<rule id="_if">
+		<main>
+			<string value="@if" />
+		</main>
+	</rule>
+
+	<rule id="_else">
+		<main>
+			<string value="@else" />
+		</main>
+	</rule>
+
+	<rule id="_for">
+		<main>
+			<string value="@for" />
+		</main>
+	</rule>
+
+	<rule id="_foreach">
+		<main>
+			<string value="@foreach" />
+		</main>
+	</rule>
+
+	<rule id="_in">
+		<main>
+			<string value="@in" />
+		</main>
+	</rule>
+
+	<rule id="forever">
+		<main>
+			<string value="@forever" />
+		</main>
+	</rule>
+
+	<rule id="_break">
+		<main>
+			<string value="@break" />
+		</main>
+	</rule>
+
+	<rule id="_continue">
+		<main>
+			<string value="@continue" />
+		</main>
+	</rule>
+
+	<rule id="print">
+		<main>
+			<string value="@print" />
+		</main>
+	</rule>
+
+	<rule id="println">
+		<main>
+			<string value="@println" />
+		</main>
+	</rule>
+
+	<rule id="_null">
+		<main>
+			<string value="@NULL" />
+		</main>
+	</rule>
+
+	<rule id="gui">
+		<main>
+			<string value="@gui" />
+		</main>
+	</rule>
+
+	<rule id="_void">
+		<main>
+			<string value="void" />
+		</main>
+	</rule>
+
+</lexer>
