@@ -1,10 +1,10 @@
 package fr.umlv.ir.dingo.tree;
 
 
-public class Ident implements Expr {
+public class Identifier implements Expr {
 	final String id;
 
-	  public Ident(String id) {
+	  public Identifier(String id) {
 	    this.id = id;
 	  }
 

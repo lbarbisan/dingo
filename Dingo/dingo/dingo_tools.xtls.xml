@@ -53,7 +53,7 @@
 	<import type="java.math.BigDecimal" />
 	<import type="fr.umlv.ir.dingo.tree.Instruction" />
 	<import type="fr.umlv.ir.dingo.tree.ExprDefinition" />
-	<import type="fr.umlv.ir.dingo.tree.Instruction" />
+	<import type="fr.umlv.ir.dingo.tree.Instructions" />
 	<import type="fr.umlv.ir.dingo.tree.Identifier" />
 	<import type="fr.umlv.ir.dingo.tree.Expr" />
 	<import type="fr.umlv.ir.dingo.tree.NumericExpr" />

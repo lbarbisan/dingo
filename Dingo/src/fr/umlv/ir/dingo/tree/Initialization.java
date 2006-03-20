@@ -1,11 +1,11 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Initialization implements DefinitionExpr {
+public class Initialization implements ExprDefinition {
 
-	private final Ident variable;
+	private final Identifier variable;
 	private final Tree expr;
 	
-	public Initialization(Ident variable, Tree expr){
+	public Initialization(Identifier variable, Tree expr){
 		this.variable=variable;
 		this.expr = expr;
 	}
@@ -18,7 +18,7 @@ public class Initialization implements DefinitionExpr {
 		return expr;
 	}
 
-	public Ident getVariable() {
+	public Identifier getVariable() {
 		return variable;
 	}
 

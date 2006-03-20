@@ -56,7 +56,7 @@ public class ToolsLexerListener extends AbstractLexerListener<RuleEnum,TokenBuff
         parser.step(TerminalEnum.array_type);
         return BufferOperation.DISCARD;
       case identifier:
-        attributeEvaluator.identifier(seq);
+        holder.set_Object(attributeEvaluator.identifier(seq));
         parser.step(TerminalEnum.identifier);
         return BufferOperation.DISCARD;
       case numeric_identifier:

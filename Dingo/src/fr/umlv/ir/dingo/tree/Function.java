@@ -3,7 +3,7 @@ package fr.umlv.ir.dingo.tree;
 
 public class Function implements Instruction {
 
-	public Function(String returnType, String name, Params params, Instructions program) {
+	public Function(String returnType, String name, ParamsList params, Instructions program) {
 	    this.name = name;
 	    this.params = params;
 	    this.program = program;
@@ -14,7 +14,7 @@ public class Function implements Instruction {
 	    v.visit(this);
 	    
 	  }
-	  private Params params;
+	  private ParamsList params;
 	  private Instructions program;
 	  private String name;
 	  private String returnType;
@@ -23,7 +23,7 @@ public class Function implements Instruction {
 	    return this.program;
 	  }
 
-	  public final Params getParams() {
+	  public final ParamsList getParams() {
 	    return this.params;
 	  }
 

@@ -7,13 +7,13 @@ import java.util.LinkedList;
 
 
 
-public class Params implements Tree {
+public class ParamsList implements Tree {
 
 	final LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
 	  
-	  public Params()  {
+	  public ParamsList()  {
 	  }
-	  public Params(String ident, String type) {
+	  public ParamsList(String ident, String type) {
 	    params.put(ident, type);
 	  }
 
@@ -30,7 +30,7 @@ public class Params implements Tree {
 	  }
 
 
-	  public Params add(String ident, String type) {
+	  public ParamsList add(String ident, String type) {
 	    params.put(ident, type);
 	    return this;
 	  }

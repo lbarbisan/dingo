@@ -1,6 +1,6 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Var implements DefinitionExpr {
+public class Var implements ExprDefinition {
 
 	private String ident;
 

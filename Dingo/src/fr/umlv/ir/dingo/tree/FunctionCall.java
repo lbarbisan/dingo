@@ -1,7 +1,7 @@
 package fr.umlv.ir.dingo.tree;
 
 
-public class FunctionCall implements DefinitionExpr {
+public class FunctionCall implements ExprDefinition {
 
 	public FunctionCall(String ident, ArgsList args) {
 	    this.ident = ident;

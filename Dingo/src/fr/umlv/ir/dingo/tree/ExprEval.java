@@ -1,7 +1,7 @@
 package fr.umlv.ir.dingo.tree;
 
 
-public class ExprEval implements DefinitionExpr {
+public class ExprEval implements ExprDefinition {
 
 	public ExprEval(Expr expr) {
 	    this.expr = expr;

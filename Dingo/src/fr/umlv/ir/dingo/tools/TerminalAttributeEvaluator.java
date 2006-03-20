@@ -1,20 +1,20 @@
 package fr.umlv.ir.dingo.tools;
 
 import fr.umlv.ir.dingo.tools.TerminalAttributeEvaluator;
+import fr.umlv.ir.dingo.tree.Identifier;
 import fr.umlv.ir.dingo.tree.NumericValue;
-import fr.umlv.ir.dingo.tree.StringValue;
 
 public interface TerminalAttributeEvaluator {
   public void space(CharSequence seq);
   public void comment(CharSequence seq);
   public NumericValue numberValue(CharSequence seq);
-  public StringValue stringValue(CharSequence seq);
+  public String stringValue(CharSequence seq);
   public void string_type(CharSequence seq);
   public void numeric_type(CharSequence seq);
   public void function_type(CharSequence seq);
   public void object_type(CharSequence seq);
   public void array_type(CharSequence seq);
-  public void identifier(CharSequence seq);
+  public Identifier identifier(CharSequence seq);
   public void numeric_identifier(CharSequence seq);
   public void string_identifier(CharSequence seq);
   public void plus(CharSequence seq);

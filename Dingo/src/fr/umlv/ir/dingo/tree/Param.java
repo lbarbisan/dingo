@@ -1,6 +1,6 @@
 package fr.umlv.ir.dingo.tree;
 
-public class Param extends Params{
+public class Param extends ParamsList{
 
 	private String type;
 	private String ident;

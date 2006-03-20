@@ -4,7 +4,7 @@ package fr.umlv.ir.dingo.tree;
 
 public interface TreeVisitor {
 	public void visit(Var variable);
-	public void visit(Ident ident);
+	public void visit(Identifier ident);
 	public void visit(ExprEval exprEval);
 	public void visit(StringValue stringValue);
 	public void visit(NumericValue numericValue);
@@ -34,7 +34,7 @@ public interface TreeVisitor {
 	public void visit(Break Break);
 	public void visit(Initialization initialization);
 	public void visit(Function function);
-	public void visit(Params params);
+	public void visit(ParamsList params);
 	public void visit(FunctionCall functionCall);
 	public void visit(ArgsList args);
 }
