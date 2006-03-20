@@ -1,0 +1,4 @@
+@dingo Basic {
+	a = 1+2;
+	@println(a);
+}

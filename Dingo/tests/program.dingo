@@ -1,0 +1,11 @@
+@dingo test{
+@var a = 5;
+b = 25;
+c = b+a;
+@println(c);
+@if(1>=1){
+@println(a);
+};
+@println(c);
+}
+

@@ -1,0 +1,8 @@
+@dingo Function{
+@def Numeric ff (){
+	@var Numeric a = 8;
+	@println(a);
+};
+
+f();
+}

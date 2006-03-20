@@ -1,0 +1,6 @@
+@dingo Calcul{
+	a = 1+2;
+	@var b = a*2;
+	Numeric c = a+b;
+	@println(c); 
+}

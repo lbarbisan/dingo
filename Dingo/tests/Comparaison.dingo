@@ -1,0 +1,30 @@
+@dingo Comparaison{
+
+@var Numeric a = 5;
+c = a - 1;
+
+@if(a>c){
+@println(a);
+};
+
+@if(c>a){
+@println(c);
+};
+
+@if(5!=a){
+@println(10);
+};
+
+@if(5=a){
+@println(15);
+};
+
+@if(5>=a){
+@println(20);
+};
+
+@if(a>=25){
+@println(25);
+};
+
+}

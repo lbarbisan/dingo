@@ -1,0 +1,19 @@
+@dingo Test{
+
+@var a = 5;
+
+@def void function(){
+	@if(1=2){
+	@println(1);
+	};
+	
+	@if(2=2){
+	@println(2);
+	};
+
+};
+
+function();
+
+
+}
