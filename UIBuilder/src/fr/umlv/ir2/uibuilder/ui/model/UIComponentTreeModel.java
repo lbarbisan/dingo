@@ -1,5 +1,6 @@
 package fr.umlv.ir2.uibuilder.ui.model;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -17,6 +18,19 @@ public class UIComponentTreeModel extends DefaultTreeModel {
 		super(null);
 		this.root = new UIComponentTreeNode(null, component);
 		this.setRoot(this.root);
+	}
+	
+	public void remove(Component component)
+	{
+		for(UIComponentTreeNode selectUIComponentTreeNode : this.getRoot().childs)
+		{
+			if(selectUIComponentTreeNode.getComponent()==component)
+			{
+				this.getRoot().remove(selectUIComponentTreeNode);
+				break;
+			}
+		}
+		
 	}
 	
 	public class UIComponentTreeNode extends DefaultMutableTreeNode {
@@ -79,6 +93,7 @@ public class UIComponentTreeModel extends DefaultTreeModel {
 			nodesWereRemoved(this, new int[]{index}, new Object[]{node.getComponent()});
 		}
 		
+		
 		public String toString() {
 			
 			return this.component.getComponentName();
@@ -117,4 +132,5 @@ public class UIComponentTreeModel extends DefaultTreeModel {
 	private static final long serialVersionUID = 1L;
 	/* represent the tree root */
 	private final UIComponentTreeNode root;
+	
 }

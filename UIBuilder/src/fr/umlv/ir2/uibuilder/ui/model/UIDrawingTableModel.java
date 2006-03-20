@@ -3,6 +3,7 @@ package fr.umlv.ir2.uibuilder.ui.model;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import fr.umlv.ir2.uibuilder.ui.MainFrame;
@@ -66,6 +67,7 @@ public class UIDrawingTableModel extends AbstractTableModel {
 
 	public void removeValueAt(int row, int column) {
 		
+		fireTableChanged(new TableModelEvent(this, row, row,column , TableModelEvent.DELETE));
 		rowData[row][column] = null;
 		fireTableCellUpdated(row,column);
 	}
@@ -82,7 +84,7 @@ public class UIDrawingTableModel extends AbstractTableModel {
 	public void addComponent(Object component, int row, int column) {
 		
 		setValueAt(component,row,column);
-		((UIComponentTreeModel)(MainFrame.getComponentTree().getModel())).getRoot().add((UIJComponent)component);
+		fireTableChanged(new TableModelEvent(this, row, row,column , TableModelEvent.INSERT));
 		fireTableCellUpdated(row,column);
 	}
 	
@@ -101,7 +103,7 @@ public class UIDrawingTableModel extends AbstractTableModel {
 	public void changeComponentBackgroundColor(Color color, int row, int column) {
 	
 		UIJComponent component =  rowData[row][column];
-		component.setBackground(color);
+		component.getComponent().setBackground(color);
 		fireTableCellUpdated(row,column);
 	}
 	

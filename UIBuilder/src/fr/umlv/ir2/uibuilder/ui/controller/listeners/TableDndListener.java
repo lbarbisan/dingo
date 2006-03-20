@@ -36,11 +36,8 @@ public class TableDndListener implements DragSourceListener, DragGestureListener
 		sourceColumn = jTable.columnAtPoint(point);
 		sourceRow = jTable.rowAtPoint(point);
 		
-		if (sourceColumn > 0) {
-			
+		if (sourceColumn > 0) {			
 			Component component =  (Component)((UIDrawingTableModel)(jTable.getModel())).getUIJComponentValueAt(sourceRow,sourceColumn);
-		
-
 			dge.startDrag(DragSource.DefaultMoveDrop, new TransferableComponent(component) , (DragSourceListener) this);
 		}
 
@@ -65,7 +62,8 @@ public class TableDndListener implements DragSourceListener, DragGestureListener
 			int row = table.rowAtPoint(dtde.getLocation());
 			if(row!=-1 && column>0)
 			{
-				table.getModel().setValueAt(component,row, column );
+				((UIDrawingTableModel)(table.getModel())).addComponent(component,row, column );
+				table.changeSelection(row, column, false, false);
 			}
 			else
 			{
@@ -74,8 +72,10 @@ public class TableDndListener implements DragSourceListener, DragGestureListener
 			dtde.dropComplete(true);
 		} catch (UnsupportedFlavorException e) {
 			dtde.dropComplete(false);
+			e.printStackTrace();
 		} catch (IOException e) {
 			dtde.dropComplete(false);
+			e.printStackTrace();
 		}
 	}
 	
