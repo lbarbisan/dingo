@@ -13,6 +13,7 @@ import fr.umlv.ir.dingo.tree.BooleanValue;
 import fr.umlv.ir.dingo.tree.Break;
 import fr.umlv.ir.dingo.tree.Continue;
 import fr.umlv.ir.dingo.tree.Div;
+import fr.umlv.ir.dingo.tree.Else;
 import fr.umlv.ir.dingo.tree.Equals;
 import fr.umlv.ir.dingo.tree.Expr;
 import fr.umlv.ir.dingo.tree.ExprEval;
@@ -48,13 +49,6 @@ public class ASMVisitor implements TreeVisitor {
 
 	private static final String JAVA_MATH_BIG_DECIMAL = "java/math/BigDecimal";
 
-	public ASMVisitor(String className, MethodVisitor mv) {
-		this.className = className;
-		this.methodVisitor = mv;
-
-		mv.visitMaxs(64, 32);
-	}
-
 	private final String className;
 
 	private final MethodVisitor methodVisitor;
@@ -62,7 +56,13 @@ public class ASMVisitor implements TreeVisitor {
 	private final SymbolTableImpl<Var> table = new SymbolTableImpl<Var>();
 
 	private int currentRegister = 0;
+	
+	public ASMVisitor(String className, MethodVisitor mv) {
+		this.className = className;
+		this.methodVisitor = mv;
 
+		mv.visitMaxs(64, 32);
+	}
 
 	private HashMap<String, Function> functions = new HashMap<String, Function>();
 
@@ -70,9 +70,9 @@ public class ASMVisitor implements TreeVisitor {
 		return functions;
 	}
 
-	public void visit(Var variable) {
-		variable = table.get(variable.getIdentifier());
-		methodVisitor.visitVarInsn(Opcodes.ALOAD, variable.getRegister());
+	public void visit(Var identifier) {
+		identifier = table.get(identifier.getIdentifier());
+		methodVisitor.visitVarInsn(Opcodes.ALOAD, identifier.getRegister());
 	}
 
 	public void visit(Identifier identifier) {
@@ -131,7 +131,7 @@ public class ASMVisitor implements TreeVisitor {
 	public void visit(And and) {
 		and.getLeft().accept(this);
 		and.getRight().accept(this);
-
+		
 	}
 
 	public void visit(Or or) {
@@ -146,32 +146,30 @@ public class ASMVisitor implements TreeVisitor {
 
 	public void visit(BooleanValue booleanValue) {
 		booleanValue.getValue();
-
 	}
 
 	public void visit(If If) {
-		Label lless = new Label();
+		Label less = new Label();
 		Label lout = new Label();
 		If.getBooleanExpr().accept(this);
-		methodVisitor.visitJumpInsn(Opcodes.IFNE, lless);
-		If.getProgram().accept(this);
+		methodVisitor.visitJumpInsn(Opcodes.IFNE, less);
+		If.getInstructions().accept(this);
 		methodVisitor.visitJumpInsn(Opcodes.GOTO, lout);
-		methodVisitor.visitLabel(lless);
+		methodVisitor.visitLabel(less);
 		methodVisitor.visitLabel(lout);
-
 	}
 
-	public void visit(Sup superior) {
-		superior.getLeft().accept(this);
-		superior.getRight().accept(this);
+	public void visit(Sup sup) {
+		sup.getLeft().accept(this);
+		sup.getRight().accept(this);
 		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, JAVA_MATH_BIG_DECIMAL,
 				"compareTo", "(Ljava/math/BigDecimal;)I");
-		Label lless = new Label();
+		Label less = new Label();
 		Label lout = new Label();
-		methodVisitor.visitJumpInsn(Opcodes.IFGT, lless);
+		methodVisitor.visitJumpInsn(Opcodes.IFGT, less);
 		methodVisitor.visitInsn(Opcodes.ICONST_1);
 		methodVisitor.visitJumpInsn(Opcodes.GOTO, lout);
-		methodVisitor.visitLabel(lless);
+		methodVisitor.visitLabel(less);
 		methodVisitor.visitInsn(Opcodes.ICONST_0);
 		methodVisitor.visitLabel(lout);
 	}
@@ -181,12 +179,12 @@ public class ASMVisitor implements TreeVisitor {
 		inferior.getRight().accept(this);
 		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, JAVA_MATH_BIG_DECIMAL,
 				"compareTo", "(Ljava/math/BigDecimal;)I");
-		Label lless = new Label();
+		Label less = new Label();
 		Label lout = new Label();
-		methodVisitor.visitJumpInsn(Opcodes.IFLT, lless);
+		methodVisitor.visitJumpInsn(Opcodes.IFLT, less);
 		methodVisitor.visitInsn(Opcodes.ICONST_1);
 		methodVisitor.visitJumpInsn(Opcodes.GOTO, lout);
-		methodVisitor.visitLabel(lless);
+		methodVisitor.visitLabel(less);
 		methodVisitor.visitInsn(Opcodes.ICONST_0);
 		methodVisitor.visitLabel(lout);
 	}
@@ -227,12 +225,12 @@ public class ASMVisitor implements TreeVisitor {
 		equals.getRight().accept(this);
 		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, JAVA_MATH_BIG_DECIMAL,
 				"compareTo", "(Ljava/math/BigDecimal;)I");
-		Label lless = new Label();
+		Label less = new Label();
 		Label lout = new Label();
-		methodVisitor.visitJumpInsn(Opcodes.IFEQ, lless);
+		methodVisitor.visitJumpInsn(Opcodes.IFEQ, less);
 		methodVisitor.visitInsn(Opcodes.ICONST_1);
 		methodVisitor.visitJumpInsn(Opcodes.GOTO, lout);
-		methodVisitor.visitLabel(lless);
+		methodVisitor.visitLabel(less);
 		methodVisitor.visitInsn(Opcodes.ICONST_0);
 		methodVisitor.visitLabel(lout);
 	}
@@ -242,19 +240,45 @@ public class ASMVisitor implements TreeVisitor {
 		notEquals.getRight().accept(this);
 		methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, JAVA_MATH_BIG_DECIMAL,
 				"compareTo", "(Ljava/math/BigDecimal;)I");
-		Label lless = new Label();
+		Label less = new Label();
 		Label lout = new Label();
-		methodVisitor.visitJumpInsn(Opcodes.IFNE, lless);
+		methodVisitor.visitJumpInsn(Opcodes.IFNE, less);
 		methodVisitor.visitInsn(Opcodes.ICONST_1);
 		methodVisitor.visitJumpInsn(Opcodes.GOTO, lout);
-		methodVisitor.visitLabel(lless);
+		methodVisitor.visitLabel(less);
 		methodVisitor.visitInsn(Opcodes.ICONST_0);
 		methodVisitor.visitLabel(lout);
 	}
 
-	public void visit(For For) {
+	public void visit(For _for) {
 		
-
+		Label l0 = new Label();//Point d'entree
+		methodVisitor.visitLabel(l0);
+		
+		_for	.getInit().accept(this);//Initialisation
+		
+		Label l1 = new Label();
+		methodVisitor.visitLabel(l1);
+	
+		Label l2 = new Label();
+		
+		Label l3 = new Label();
+		methodVisitor.visitLabel(l3);
+		
+		_for.getInstructions().accept(this); //on execute les instructions
+		
+		Label l4 = new Label();
+		methodVisitor.visitLabel(l4);
+		
+		_for.getIncrement().accept(this);
+		methodVisitor.visitLabel(l2);
+		
+		_for.getBooleanExpr().accept(this);//Test
+		methodVisitor.visitLabel(l3);
+		
+		Label l5 = new Label();
+		methodVisitor.visitLabel(l5);
+		
 	}
 
 	public void visit(Foreach Foreach) {
@@ -263,8 +287,15 @@ public class ASMVisitor implements TreeVisitor {
 	}
 
 	public void visit(Forever forever) {
+		Label l0 = new Label();
 		
-
+		methodVisitor.visitLabel(l0);
+		
+		forever.getInstructions().accept(this);
+		
+		methodVisitor.visitJumpInsn(Opcodes.GOTO, l0);
+		Label l1 = new Label();
+		methodVisitor.visitLabel(l1);
 	}
 
 	public void visit(Print print) {
@@ -321,7 +352,6 @@ public class ASMVisitor implements TreeVisitor {
 
 		}
 		methodVisitor.visitVarInsn(Opcodes.ASTORE, variable.getRegister());
-
 	}
 
 	public void visit(Function function) {
@@ -336,7 +366,7 @@ public class ASMVisitor implements TreeVisitor {
 
 	public void visit(FunctionCall functionCall) {
 		Function f = functions.get(functionCall.getIdentifier());
-		Iterator<String> it = f.getParameters().typeIterator();
+		Iterator<String> it = f.getParameters().types();
 		StringBuilder sb = new StringBuilder();
 		while (it.hasNext()) {
 			sb.append(it.next());
@@ -354,6 +384,10 @@ public class ASMVisitor implements TreeVisitor {
 
 	public SymbolTableImpl<Var> getTable() {
 		return table;
+	}
+
+	public void visit(Else _else) {
+		
 	}
 	
 	

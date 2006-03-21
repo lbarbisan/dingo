@@ -1,7 +1,5 @@
 package fr.umlv.ir.dingo;
 
-import java.math.BigDecimal;
-
 import fr.umlv.ir.dingo.tools.GrammarEvaluator;
 import fr.umlv.ir.dingo.tree.And;
 import fr.umlv.ir.dingo.tree.ArgsList;
@@ -10,6 +8,7 @@ import fr.umlv.ir.dingo.tree.BooleanValue;
 import fr.umlv.ir.dingo.tree.Break;
 import fr.umlv.ir.dingo.tree.Continue;
 import fr.umlv.ir.dingo.tree.Div;
+import fr.umlv.ir.dingo.tree.Else;
 import fr.umlv.ir.dingo.tree.Equals;
 import fr.umlv.ir.dingo.tree.Expr;
 import fr.umlv.ir.dingo.tree.ExprDefinition;
@@ -30,7 +29,6 @@ import fr.umlv.ir.dingo.tree.Modulo;
 import fr.umlv.ir.dingo.tree.Not;
 import fr.umlv.ir.dingo.tree.NotEquals;
 import fr.umlv.ir.dingo.tree.NumericExpr;
-import fr.umlv.ir.dingo.tree.NumericIdentifier;
 import fr.umlv.ir.dingo.tree.NumericValue;
 import fr.umlv.ir.dingo.tree.Or;
 import fr.umlv.ir.dingo.tree.Param;
@@ -41,7 +39,6 @@ import fr.umlv.ir.dingo.tree.Println;
 import fr.umlv.ir.dingo.tree.Return;
 import fr.umlv.ir.dingo.tree.Star;
 import fr.umlv.ir.dingo.tree.StringExpr;
-import fr.umlv.ir.dingo.tree.StringIdentifier;
 import fr.umlv.ir.dingo.tree.StringValue;
 import fr.umlv.ir.dingo.tree.Sup;
 import fr.umlv.ir.dingo.tree.SupEquals;
@@ -79,10 +76,6 @@ public class DingoGrammarEvaluator implements GrammarEvaluator {
 		
 	}
 
-	public ExprDefinition empty_type_expr_def(Identifier identifier) {
-		return new Var(identifier.getValue());
-	}
-
 	public ExprDefinition full_type_expr_def(String type, Identifier identifier) {
 		return new Var(type,identifier.getValue());
 	}
@@ -111,23 +104,8 @@ public class DingoGrammarEvaluator implements GrammarEvaluator {
 		return function_call;
 	}
 
-	public NumericExpr identifier_numeric_def() {
-		// TODO A SUPPRIME
-		return new NumericValue(new BigDecimal(0));
-	}
-
-	public StringExpr identifier_string_def() {
-		// TODO A SUPPRIME
-		return new StringValue("");
-	}
-
 	public StringExpr string_value_def(String stringValue) {
 		return new StringValue(stringValue);
-	}
-
-	public StringExpr concat_def(StringExpr string_expr, StringExpr string_expr2) {
-		//return new Plus(string_expr,string_expr2);
-		return null;
 	}
 
 	public Expr plus_def(Expr numeric_expr, Expr numeric_expr2) {
@@ -154,17 +132,12 @@ public class DingoGrammarEvaluator implements GrammarEvaluator {
 		return numberValue;
 	}
 
-	public Instruction if_def(BooleanExpr booleanExpr, Instructions instructions) {
-		return new If(booleanExpr,instructions); //TODO Gestion du bloc else
+	public Else empty_else_bloc() {
+		return null;
 	}
 
-	public void empty_else_bloc() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void full_else_bloc(Instructions instructions) {
-		//TODO CREER LE BLOC ELSE
+	public Else full_else_bloc(Instructions instructions) {
+		return new Else(instructions);
 	}
 
 	public BooleanExpr and_def(BooleanExpr booleanExpr, BooleanExpr booleanExpr2) {
@@ -294,7 +267,7 @@ public class DingoGrammarEvaluator implements GrammarEvaluator {
 	}
 
 	public ParamsList empty_params_list_def() {
-		return null; //TODO CHECK
+		return new ParamsList();
 	}
 
 	public ArgsList one_arg_list_def(Expr arg) {
@@ -316,12 +289,26 @@ public class DingoGrammarEvaluator implements GrammarEvaluator {
 		return identifier;
 	}
 
-	public Expr identifier_numeric_def(Identifier numeric_identifier) {
-		return new NumericIdentifier(numeric_identifier.getValue()) ;
+	public ExprDefinition empty_type_expr_def(Identifier identifier, FunctionCall function_call) {
+		if(function_call !=null){
+			function_call.setIdentifier(identifier.getValue()); // Set the name of the fonction
+			return function_call;
+		}
+		else{
+			return new Var(identifier.getValue());
+		}
 	}
 
-	public StringExpr identifier_string_def(Identifier string_identifier) {
-		return new StringIdentifier(string_identifier.getValue()) ;
+	public FunctionCall empty_function_call_def() {
+		return null;
+	}
+
+	public FunctionCall function_call_def(ArgsList args_list) {
+		return new FunctionCall(null,args_list);
+	}
+
+	public Instruction if_def(BooleanExpr booleanExpr, Instructions instructions, Else else_bloc) {
+		return new If(booleanExpr,instructions,else_bloc);
 	}
 
 }

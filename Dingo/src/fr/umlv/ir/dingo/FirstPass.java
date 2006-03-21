@@ -12,6 +12,7 @@ import fr.umlv.ir.dingo.tree.BooleanValue;
 import fr.umlv.ir.dingo.tree.Break;
 import fr.umlv.ir.dingo.tree.Continue;
 import fr.umlv.ir.dingo.tree.Div;
+import fr.umlv.ir.dingo.tree.Else;
 import fr.umlv.ir.dingo.tree.Equals;
 import fr.umlv.ir.dingo.tree.ExprEval;
 import fr.umlv.ir.dingo.tree.For;
@@ -174,7 +175,7 @@ public class FirstPass implements TreeVisitor {
 	}
 
 	public void visit(Function function) {
-		Iterator<String> it = function.getParameters().typeIterator();
+		Iterator<String> it = function.getParameters().types();
 
 		StringBuilder builder = new StringBuilder();
 		while(it.hasNext()){
@@ -190,7 +191,7 @@ public class FirstPass implements TreeVisitor {
 				"("+builder.toString()+")V", null, null);
 		ASMVisitor v = new ASMVisitor(className, mv);
 		
-		Iterator <String> it2 = function.getParameters().variableIterator();
+		Iterator <String> it2 = function.getParameters().identifiers();
 		while(it2.hasNext()){
 			String s = it2.next();
 			v.getTable().push(s, new Var(s));
@@ -211,6 +212,11 @@ public class FirstPass implements TreeVisitor {
 	}
 
 	public void visit(ArgsList args) {
+		
+	}
+
+	public void visit(Else _else) {
+		// TODO Auto-generated method stub
 		
 	}
 
