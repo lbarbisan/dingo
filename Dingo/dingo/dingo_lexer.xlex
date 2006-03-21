@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE lexer SYSTEM "lexer.dtd">
+<!DOCTYPE lexer SYSTEM "dtd/lexer.dtd">
 <lexer>
 	<!-- Macros -->
 
@@ -47,18 +47,59 @@
 			</set>
 		</plus>
 	</define-macro>
-
-	<define-macro name="comment">
-		<cat>
-			<string value="//" />
+	
+	<define-macro name="all">
 			<any />
+	</define-macro>
+	
+	<define-macro name="not_star">
+		<set negate ="true"><letter value="*"/></set>
+	</define-macro>
+
+	<define-macro name="not_star_slash">
+		<set negate ="true"><letter value="/"/></set>
+	</define-macro>
+	   
+	<define-macro name="comment">
+		<or>
+		<cat>
+			<string value="/*" />
+			<star>
+				<set negate ="true"><letter value="*"/></set>
+			</star>
+			<plus>
+				<letter value="*"/>
+			</plus>
+			<star>
+				<cat>
+					<set negate ="true"><letter value="/"/></set>
+					<star>
+						<set negate ="true"><letter value="*"/></set>
+					</star>
+					<plus>
+						<letter value="*"/>
+					</plus>
+				</cat>
+			</star>
+			<letter value="/" />
+		</cat>
+		<cat>
+		  	<string value="//" />
+		  	<star>
+				<set negate ="true">
+					<letter value="\r" />
+					<letter value="\n" />
+				</set>
+			</star>
+		  	<cat>
 			<optional>
 				<letter value="\r" />
 			</optional>
 			<letter value="\n" />
+			</cat>
 		</cat>
+		</or>
 	</define-macro>
-
 
 	<!-- Rules-->
 	<rule id="space">
