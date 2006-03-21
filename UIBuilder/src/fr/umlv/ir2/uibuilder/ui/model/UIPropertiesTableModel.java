@@ -8,6 +8,8 @@ import javax.swing.table.AbstractTableModel;
 import fr.umlv.ir2.uibuilder.ui.elements.components.UIJComponent;
 
 public class UIPropertiesTableModel extends AbstractTableModel {
+
+	private UIJComponent component;
 	
 	public UIPropertiesTableModel() {
 		
@@ -77,6 +79,7 @@ public class UIPropertiesTableModel extends AbstractTableModel {
 	
 	public void setUIComponentPropertiesValues(Object component) {
 		
+		this.component = (UIJComponent) component;
 		if(component != null) {
 			
 			this.rowData[1][0] = ((UIJComponent)component).getComponentName();
@@ -103,5 +106,12 @@ public class UIPropertiesTableModel extends AbstractTableModel {
 	private String[] rowNames = {"Properties", "Values"};
 	private String[] columnNames = {"Name","Font","Background","isVisible","Size"};
 	private String emptyField = new String("");
+
+	/**
+	 * @return Returns the component.
+	 */
+	public UIJComponent getComponent() {
+		return component;
+	}
 	
 }

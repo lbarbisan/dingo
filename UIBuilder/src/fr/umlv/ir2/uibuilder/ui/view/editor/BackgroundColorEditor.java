@@ -35,20 +35,22 @@ public class BackgroundColorEditor implements TableCellEditor{
 		this.row = row;
 		this.column = column;
 		
-		int selectedRow = UIDrawingTable.getDrawingTable().getSelectedRow();
-		int selectedColumn = UIDrawingTable.getDrawingTable().getSelectedColumn();
+		//int selectedRow = UIDrawingTable.getDrawingTable().getSelectedRow();
+		//int selectedColumn = UIDrawingTable.getDrawingTable().getSelectedColumn();
 		
-		if(selectedRow != -1) {
+		//if(selectedRow != -1) {
 			
 			if(value instanceof String) {
 				
 				button.setBackground(Color.WHITE);
 			} 
 			else {
-					UIJComponent component = (UIJComponent) ((UIDrawingTableModel)(UIDrawingTable.getDrawingTable().getModel())).getUIJComponentValueAt(selectedRow,selectedColumn);
-					button.setBackground(component.getComponentBackground());
+				System.out.println(value);	
+				//UIJComponent component = (UIJComponent) ((UIDrawingTableModel)(UIDrawingTable.getDrawingTable().getModel())).getUIJComponentValueAt(selectedRow,selectedColumn);
+				UIJComponent component = (UIJComponent) ((UIPropertiesTableModel)table.getModel()).getComponent(); 
+				button.setBackground(component.getComponentBackground());
 			}
-		}
+		//}
 		
 		return this.button;
 	}

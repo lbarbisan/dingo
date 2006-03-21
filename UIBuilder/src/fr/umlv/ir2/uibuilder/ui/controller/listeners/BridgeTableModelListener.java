@@ -12,6 +12,7 @@ import fr.umlv.ir2.uibuilder.ui.MainFrame;
 import fr.umlv.ir2.uibuilder.ui.elements.components.UIJComponent;
 import fr.umlv.ir2.uibuilder.ui.model.UIComponentTreeModel;
 import fr.umlv.ir2.uibuilder.ui.model.UIDrawingTableModel;
+import fr.umlv.ir2.uibuilder.ui.model.UIPropertiesTableModel;
 
 /**
  * @author Administrateur
