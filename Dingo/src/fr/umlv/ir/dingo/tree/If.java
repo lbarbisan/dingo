@@ -1,26 +1,35 @@
 package fr.umlv.ir.dingo.tree;
 
-public class If implements Instruction{
+public class If implements Instruction {
 
-	public If(BooleanExpr booleanExpr, Instructions program) {
-	    this.booleanExpr = booleanExpr;
-	    this.program = program;
-	  }
+	private final BooleanExpr booleanExpr;
 
-	  final BooleanExpr booleanExpr;
+	private final Instructions instructions;
+	
+	private final Else _else;
+	
+	public If(BooleanExpr booleanExpr, Instructions instructions) {
+		this.booleanExpr = booleanExpr;
+		this.instructions = instructions;
+		_else = null;
+	}
 
-	  final Instructions program;
+	public If(BooleanExpr booleanExpr, Instructions instructions, Else else_bloc) {
+		this.booleanExpr = booleanExpr;
+		this.instructions = instructions;
+		this._else = else_bloc;
+	}
 
-	  public void accept(TreeVisitor v) {
-	    v.visit(this);
-	  }
+	public void accept(TreeVisitor v) {
+		v.visit(this);
+	}
 
-	  public final Instructions getProgram(){
-	    return this.program;
-	  }
+	public final Instructions getInstructions() {
+		return this.instructions;
+	}
 
-	  public final BooleanExpr getBooleanExpr(){
-	    return this.booleanExpr;
-	  }
+	public final BooleanExpr getBooleanExpr() {
+		return this.booleanExpr;
+	}
 
 }

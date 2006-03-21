@@ -47,6 +47,7 @@ public enum ProductionEnum {
   void_type_def,
   array_type_def,
   function_type_def,
+  empty_function_call_def,
   function_call_def,
   one_arg_list_def,
   args_list_def,
@@ -59,6 +60,5 @@ public enum ProductionEnum {
   modulo_def,
   identifier_expr_def,
   numeric_expr_def,
-  string_expr_def,
-  function_call_expr_def;
+  string_expr_def;
 }

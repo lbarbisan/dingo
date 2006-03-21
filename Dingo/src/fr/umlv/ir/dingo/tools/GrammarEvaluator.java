@@ -4,6 +4,7 @@ import fr.umlv.ir.dingo.tools.GrammarEvaluator;
 import fr.umlv.ir.dingo.tree.ArgsList;
 import fr.umlv.ir.dingo.tree.BooleanExpr;
 import fr.umlv.ir.dingo.tree.BooleanValue;
+import fr.umlv.ir.dingo.tree.Else;
 import fr.umlv.ir.dingo.tree.Expr;
 import fr.umlv.ir.dingo.tree.ExprDefinition;
 import fr.umlv.ir.dingo.tree.FunctionCall;
@@ -24,7 +25,7 @@ public interface GrammarEvaluator {
   public Instruction instruction_expr_def(ExprDefinition expr_def);
   public void full_var_keyword();
   public void empty_var_keyword();
-  public ExprDefinition empty_type_expr_def(Identifier identifier);
+  public ExprDefinition empty_type_expr_def(Identifier identifier, FunctionCall function_call);
   public ExprDefinition full_type_expr_def(String type, Identifier identifier);
   public ExprDefinition init_def(Init init);
   public Init full_type_init_identifier_def(String type, Identifier identifier, Expr expr);
@@ -32,9 +33,9 @@ public interface GrammarEvaluator {
   public Instruction function_definition(String type, Identifier identifier, ParamsList params_list, Instructions instructions);
   public StringExpr string_value_def(String stringValue);
   public NumericExpr number_value_def(NumericValue numberValue);
-  public Instruction if_def(BooleanExpr booleanExpr, Instructions instructions);
-  public void empty_else_bloc();
-  public void full_else_bloc(Instructions instructions);
+  public Instruction if_def(BooleanExpr booleanExpr, Instructions instructions, Else else_bloc);
+  public Else empty_else_bloc();
+  public Else full_else_bloc(Instructions instructions);
   public BooleanExpr and_def(BooleanExpr booleanExpr, BooleanExpr booleanExpr2);
   public BooleanExpr or_def(BooleanExpr booleanExpr, BooleanExpr booleanExpr2);
   public BooleanExpr equals_def(Expr expr, Expr expr2);
@@ -63,7 +64,8 @@ public interface GrammarEvaluator {
   public String void_type_def();
   public String array_type_def(String type);
   public String function_type_def();
-  public FunctionCall function_call_def(Identifier identifier, ArgsList args_list);
+  public FunctionCall empty_function_call_def();
+  public FunctionCall function_call_def(ArgsList args_list);
   public ArgsList one_arg_list_def(Expr arg);
   public ArgsList args_list_def(Expr arg, ArgsList args_list);
   public ArgsList empty_args_list_def();
@@ -76,5 +78,4 @@ public interface GrammarEvaluator {
   public Expr identifier_expr_def(Identifier identifier);
   public Expr numeric_expr_def(NumericExpr numeric_expr);
   public Expr string_expr_def(StringExpr string_expr);
-  public Expr function_call_expr_def(FunctionCall function_call);
 }

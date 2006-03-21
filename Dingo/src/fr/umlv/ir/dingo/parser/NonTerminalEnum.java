@@ -7,6 +7,7 @@ public enum NonTerminalEnum {
   instruction,
   expr_def,
   var,
+  function_call,
   type,
   init,
   expr,
@@ -16,7 +17,6 @@ public enum NonTerminalEnum {
   booleanExpr,
   else_bloc,
   param,
-  function_call,
   args_list,
   arg;
 }
